@@ -1,0 +1,155 @@
+_G.toggleforspirit = false
+
+while wait(0.1) and _G.toggleforspirit == false do
+repeat wait() until game:IsLoaded()
+
+repeat wait() until game:GetService("ReplicatedStorage"):WaitForChild("Events")
+
+if game.Players then
+    if game.Players.LocalPlayer then
+        if game.Players.LocalPlayer.Character then
+            if game.Players.LocalPlayer.Character.HumanoidRootPart then
+
+wait()
+_G.toggleforspirit = true
+game:GetService("ReplicatedStorage").Events.SpawnFirst:FireServer()
+
+wait(1)
+
+
+local ohNumber1 = 2
+
+game:GetService("ReplicatedStorage").Events.EquipTool:FireServer(ohNumber1)
+
+
+
+for i,v in pairs(workspace.Resources:GetChildren()) do
+    if v.Name == "Crystal Guardian" then
+        if v["Crystal Guardian"] ~= nil then
+            local m = v["Crystal Guardian"]
+            local runservice = game:GetService("RunService")
+local plr = game:GetService("Players").LocalPlayer
+local char = game.Players.LocalPlayer.Character
+root = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart",math.huge)
+
+local p = {
+    [1] = "Crystal Chunk",
+    [2] = "Spirit Key"
+}
+
+
+spawn(function()
+    getgenv().autopickup3 = runservice.RenderStepped:Connect(function()
+        for _,v in pairs(workspace.Items:GetChildren()) do
+            if v.Name == p[1] or v.Name == p[2] or v.Name == p[3] or v.Name == p[4] or v.Name == p[5] or v.Name == p[6] or v.Name == p[7] or v.Name == p[8] or v.Name == p[9] or v.Name == p[10] then
+                local dist = (v.Position - char.HumanoidRootPart.Position).magnitude
+                local dist1 = 25.01
+                if dist < dist1 then
+                game:GetService("ReplicatedStorage").Events.Pickup:FireServer(v)
+                end
+            end
+        end
+    end)
+end)
+
+function getspiritkeypath()
+    local a = nil
+    for i,v in pairs(workspace.Resources:GetChildren()) do
+        if v.Name == "Crystal Guardian" then
+            if v ~= nil then
+                if v["Crystal Guardian"] then
+                a = v
+                end
+            end
+        end
+    end
+    return a
+end
+
+function getpathcrystalbantae()
+    for i,v in pairs(workspace.Critters:GetChildren()) do
+        if v.Name == "Crystal Bantae" then
+            if v then
+                if v.HumanoidRootPart then
+                    local m = v
+                end
+            end
+        end
+    end
+    return m
+end
+
+function nearCRYSTAL()
+    local maxdist = math.huge
+    local target = nil
+    
+    for i,v in pairs(game:GetService("Workspace").Resources:GetChildren()) do
+        if v.Name == "Crystal Lode" then
+            local dist = (root.Position - v.Stone.Position).magnitude
+            if dist < maxdist then
+                maxdist = dist
+                target = v
+                if (v.Stone.Position - root.Position).magnitude < (root.Position - target.Stone.Position).magnitude then
+                    target = v
+                end
+            end
+        end
+    end
+    return target
+end
+
+local speaker = game.Players.LocalPlayer
+char = speaker.Character
+root = char.HumanoidRootPart
+local Pickup = game:GetService("ReplicatedStorage").Events.Pickup
+spawn(function()
+while true do
+    game:GetService("RunService").Heartbeat:Wait(0.1)
+    for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
+        if v.Name == "Pumpkin Pie" then
+            if v then
+                local dist = (speaker.Character.HumanoidRootPart.Position - v.Position).magnitude
+                if dist < 25 then
+                    game:GetService("ReplicatedStorage").Events.Consume:FireServer(v)
+                end
+            end
+        end
+    end
+end
+end)
+--- REAL SCRIPT BEGINS NOW LOL ---
+
+
+while wait(0.5) and getgenv().autofarmspirit == true do
+    local m = getspiritkeypath()
+    if m ~= nil then
+            wait(.2)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0,1001100,111110)
+            wait(.5)
+            game.Players.LocalPlayer.Name = "Troll"
+            game:GetService("ReplicatedStorage").Events.EquipTool:FireServer(2)
+            repeat
+                local Crystaltable = {}
+                table.insert(Crystaltable,m["Crystal Guardian"])
+                    print("working")
+                game:GetService("RunService").Heartbeat:Wait()
+                root.CFrame = m["Crystal Guardian"].CFrame + Vector3.new(0,5,9)
+                game:GetService("ReplicatedStorage").Events.SwingTool:FireServer(Crystaltable)
+                m = getspiritkeypath()
+                Crystaltable = {}
+            until m == nil
+    elseif m == nil then
+        print("waiting")
+        if kickwhendone == false then
+            speaker:Kick("Done getting spirit key: REJOIN")
+    end
+    end
+end
+end
+    end
+end
+end
+end
+end
+end
+end
