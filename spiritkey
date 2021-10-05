@@ -113,11 +113,6 @@ end
 end)
 --- REAL SCRIPT BEGINS NOW LOL ---
 
-
-getgenv().autofarmspirit = true
-getgenv().autofarmforcrystal = false
-getgenv().kickwhendone = true
-
 while wait(0.5) and getgenv().autofarmspirit == true do
     local m = getspiritkeypath()
     if m ~= nil then
