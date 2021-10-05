@@ -8,20 +8,14 @@ repeat wait() until game:GetService("ReplicatedStorage"):WaitForChild("Events")
 if game.Players then
     if game.Players.LocalPlayer then
         if game.Players.LocalPlayer.Character then
-            if game.Players.LocalPlayer.Character.HumanoidRootPart then
+            if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 
 wait()
+
 _G.toggleforspirit = true
 game:GetService("ReplicatedStorage").Events.SpawnFirst:FireServer()
 
 wait(1)
-
-
-local ohNumber1 = 2
-
-game:GetService("ReplicatedStorage").Events.EquipTool:FireServer(ohNumber1)
-
-
 
 for i,v in pairs(workspace.Resources:GetChildren()) do
     if v.Name == "Crystal Guardian" then
@@ -120,12 +114,16 @@ end)
 --- REAL SCRIPT BEGINS NOW LOL ---
 
 
+getgenv().autofarmspirit = true
+getgenv().autofarmforcrystal = false
+getgenv().kickwhendone = true
+
 while wait(0.5) and getgenv().autofarmspirit == true do
     local m = getspiritkeypath()
     if m ~= nil then
-            wait(.2)
+            wait(.1)
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0,1001100,111110)
-            wait(.5)
+            wait(.1)
             game.Players.LocalPlayer.Name = "Troll"
             game:GetService("ReplicatedStorage").Events.EquipTool:FireServer(2)
             repeat
@@ -140,7 +138,7 @@ while wait(0.5) and getgenv().autofarmspirit == true do
             until m == nil
     elseif m == nil then
         print("waiting")
-        if kickwhendone == false then
+        if kickwhendone == true then
             speaker:Kick("Done getting spirit key: REJOIN")
     end
     end
