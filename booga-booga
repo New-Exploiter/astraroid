@@ -8,7 +8,7 @@ repeat wait() until game:GetService("ReplicatedStorage"):WaitForChild("Events")
 if game.Players then
     if game.Players.LocalPlayer then
         if game.Players.LocalPlayer.Character then
-            if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+            if game.Players.LocalPlayer.Character.HumanoidRootPart then
 
 wait()
 
@@ -16,6 +16,13 @@ _G.toggleforspirit = true
 game:GetService("ReplicatedStorage").Events.SpawnFirst:FireServer()
 
 wait(1)
+
+
+local ohNumber1 = 2
+
+game:GetService("ReplicatedStorage").Events.EquipTool:FireServer(ohNumber1)
+
+
 
 for i,v in pairs(workspace.Resources:GetChildren()) do
     if v.Name == "Crystal Guardian" then
@@ -92,6 +99,10 @@ function nearCRYSTAL()
     return target
 end
 
+function gethp()
+
+end
+
 local speaker = game.Players.LocalPlayer
 char = speaker.Character
 root = char.HumanoidRootPart
@@ -113,15 +124,18 @@ end
 end)
 --- REAL SCRIPT BEGINS NOW LOL ---
 
-while wait(0.5) and getgenv().autofarmspirit == true do
+function spiritkey()
+    getgenv().running = true
+while wait(0.5) and autofarmspirit == true do
     local m = getspiritkeypath()
     if m ~= nil then
-            wait(.1)
+            wait(.2)
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0,1001100,111110)
-            wait(.1)
+            wait(.5)
             game.Players.LocalPlayer.Name = "Troll"
             game:GetService("ReplicatedStorage").Events.EquipTool:FireServer(2)
             repeat
+                running = true
                 local Crystaltable = {}
                 table.insert(Crystaltable,m["Crystal Guardian"])
                     print("working")
@@ -133,15 +147,70 @@ while wait(0.5) and getgenv().autofarmspirit == true do
             until m == nil
     elseif m == nil then
         print("waiting")
+        running = false
         if kickwhendone == true then
             speaker:Kick("Done getting spirit key: REJOIN")
     end
     end
 end
 end
+end
+end
+
+function domathforcrystal()
+    local m = nearCRYSTAL()
+
+                local value = m.Health
+                local a1,a2,a3,a4,a5,a6
+                a1 = 1
+                a2 = m.Health.Value
+                a3 = 20
+                repeat
+                a1 = a1 + 1
+                a2 = a2 - 20
+                until a2 == 0
+                return a1
+
+end
+
+function minecrystals()
+    local m = nearCRYSTAL()
+    if m ~= nil then
+        while wait(0.5) and autofarmforcrystal == true and running == false do
+            m = nearCRYSTAL()
+            local times = domathforcrystal()
+            local cry = {}
+            for i=1,times do
+                wait(0.5)
+                m = nearCRYSTAL()
+                table.insert(cry,m.Stone)
+                root.CFrame = m.Stone.CFrame + Vector3.new(0,10,0)
+                game:GetService("ReplicatedStorage").Events.SwingTool:FireServer(cry)
+                cry = {}
+            end 
+            end
+        elseif m == nil then
+            wait()
+            print("waiting for crystals to respawn")
+            if kickwhendone == true then
+                speaker:Kick("Done getting crystals: REJOIN")
+                end
+            end
+        end
     end
 end
+
+if autofarmforcrystal == true and autofarmspirit == false then
+    minecrystals()
+elseif autofarmforcrystal == true and autofarmspirit == true then
+    spiritkey()
+    minecrystals()
+elseif autofarmspirit == true and autofarmforcrystal == false then
+    spiritkey()
 end
+
+
+--[NOT RANDOM ENDS LOL DON'T REMOVE BITCH]--
 end
 end
 end
